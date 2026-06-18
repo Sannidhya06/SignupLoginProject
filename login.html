@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
         <h2>Welcome Back</h2>
         <p class="subtitle">Login to continue</p>
 
-        <form>
+        <form id="loginForm">
 
             <label for="name">Full Name</label>
 <input
@@ -34,13 +35,12 @@
                 required
             >
 
-            <label for="password">Password</label>
             <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                required
-            >
+    type="password"
+    id="loginPassword"
+    placeholder="Enter your password"
+    required
+>
 
             <button type="submit">Login</button>
 

@@ -3,31 +3,39 @@ document.getElementById("loginForm")
 
     event.preventDefault();
 
-    const storedUser =
-        JSON.parse(localStorage.getItem("employee"));
-
     const email =
-        document.getElementById("loginEmail").value;
+        document.getElementById("loginEmail")
+        .value
+        .trim();
 
     const password =
-        document.getElementById("loginPassword").value;
+        document.getElementById("loginPassword")
+        .value;
 
-    if(!storedUser){
-        alert("No account found. Please sign up first.");
+    const users =
+        JSON.parse(localStorage.getItem("users"))
+        || [];
+
+    const user = users.find(
+        user =>
+        user.email.toLowerCase() ===
+        email.toLowerCase()
+    );
+
+    if(!user){
+        alert(
+            "Email address not found. Please sign up first."
+        );
         return;
     }
 
-    if(email !== storedUser.email){
-        alert("Email address not found.");
-        return;
-    }
-
-    if(password !== storedUser.password){
-        alert("Incorrect password. Please enter the same password used during sign up.");
+    if(password !== user.password){
+        alert(
+            "Incorrect password. Please enter the same password used during sign up."
+        );
         return;
     }
 
     alert("Login Successful!");
-
 
 });

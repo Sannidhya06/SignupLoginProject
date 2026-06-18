@@ -3,9 +3,9 @@ document.getElementById("signupForm")
 
     event.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const contact = document.getElementById("contact").value;
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const contact = document.getElementById("contact").value.trim();
 
     const password =
         document.getElementById("password").value;
@@ -32,20 +32,51 @@ document.getElementById("signupForm")
         return;
     }
 
+    // Get existing users
+    let users =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+    // Duplicate Email Check
+    const emailExists = users.some(
+        user =>
+        user.email.toLowerCase() ===
+        email.toLowerCase()
+    );
+
+    if(emailExists){
+        alert(
+            "An account with this email already exists."
+        );
+        return;
+    }
+
+    // Duplicate Contact Number Check
+    const contactExists = users.some(
+        user => user.contact === contact
+    );
+
+    if(contactExists){
+        alert(
+            "This contact number is already registered."
+        );
+        return;
+    }
+
     const user = {
-        name: name,
-        email: email,
-        contact: contact,
-        password: password
+        name,
+        email,
+        contact,
+        password
     };
 
+    users.push(user);
+
     localStorage.setItem(
-        "employee",
-        JSON.stringify(user)
+        "users",
+        JSON.stringify(users)
     );
 
     alert("Account created successfully!");
 
     window.location.href = "login.html";
-
 });
